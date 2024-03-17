@@ -2,5 +2,5 @@ pandas
 numpy
 seaborn
 
-# to trigger the setup.py
+# to trigger (enable, running) the setup.py
 -e .
