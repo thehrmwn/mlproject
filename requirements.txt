@@ -1,6 +1,10 @@
 pandas
 numpy
 seaborn
+matplotlib
+scikit-learn
+catboost
+xgboost
 
 # to trigger (enable, running) the code inside setup.py
--e .
+#-e .
