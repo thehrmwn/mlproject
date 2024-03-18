@@ -7,4 +7,5 @@ catboost
 xgboost
 
 # to trigger (enable, running) the code inside setup.py
-#-e .
+#-e . 
+# -- enable if want to make a new package of information project
