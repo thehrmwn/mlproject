@@ -46,16 +46,55 @@ class ModelTrainer:
                 "Decision Tree": DecisionTreeRegressor(),
                 "Gradient Boosting": GradientBoostingRegressor(),
                 "Linear Regression": LinearRegression(),
-                "KNeighbors": KNeighborsRegressor(),
                 "XGBRegressor": XGBRegressor(),
-                "Catboost": CatBoostRegressor(verbose=False),
-                "Adaboost": AdaBoostRegressor(),
+                "CatBoost": CatBoostRegressor(verbose=False),
+                "AdaBoost": AdaBoostRegressor(),
+            }
+            
+            ## Hyperparameter Tuning
+            params = {
+                "Random Forest":{
+                    # 'criterion':['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
+                    # 'max_features':['sqrt','log2',None],
+                    'n_estimators': [8,16,32,64,128,256]
+                },
+                "Decision Tree": {
+                    'criterion':['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
+                    # 'splitter':['best','random'],
+                    # 'max_features':['sqrt','log2'],
+                },
+                "Gradient Boosting":{
+                    # 'loss':['squared_error', 'huber', 'absolute_error', 'quantile'],
+                    'learning_rate':[.1,.01,.05,.001],
+                    'subsample':[0.6,0.7,0.75,0.8,0.85,0.9],
+                    # 'criterion':['squared_error', 'friedman_mse'],
+                    # 'max_features':['auto','sqrt','log2'],
+                    'n_estimators': [8,16,32,64,128,256]
+                },
+                "Linear Regression":{},
+                "XGBRegressor":{
+                    'learning_rate':[.1,.01,.05,.001],
+                    'n_estimators': [8,16,32,64,128,256]
+                },
+                "CatBoost":{
+                    'depth': [6,8,10],
+                    'learning_rate': [0.01, 0.05, 0.1],
+                    'iterations': [30, 50, 100]
+                },
+                "AdaBoost":{
+                    'learning_rate':[.1,.01,0.5,.001],
+                    # 'loss':['linear','square','exponential'],
+                    'n_estimators': [8,16,32,64,128,256]
+                }
+                
             }
             
             model_report:dict = evaluate_model(X_train = X_train, y_train = y_train, X_test = X_test, y_test = y_test,
-                                               models = models
-            )
+                                               models = models, params=params)
             
+            print(model_report)
+            print('\n====================================================================================\n')
+            logging.info(f'Model Report : {model_report}')
             ## To get best model score from dictionary (model_report)
             best_model_score = max(sorted(model_report.values()))
             
@@ -67,9 +106,12 @@ class ModelTrainer:
             best_model = models[best_model_name]
             
             if best_model_score < 0.6:
+                logging.info('Best model has r2 Score less than 60%')
                 raise CustomException("No best model found!")
 
-            logging.info('Best found model on both training and testing dataset')
+            print(f'Best Model Found , Model Name : {best_model} , R2 Score : {best_model_score}')
+            print('\n====================================================================================\n')
+            logging.info(f'Best Model Found , Model Name : {best_model_name} , R2 Score : {best_model_score}')
             
             ## Save the model
             save_object(

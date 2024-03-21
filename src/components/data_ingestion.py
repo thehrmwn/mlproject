@@ -69,4 +69,4 @@ if __name__ == "__main__":
     
     model_trainer = ModelTrainer()
     best_model = model_trainer.initiate_model_trainer(train_arr, test_arr)
-    print(f"Best Model: {best_model[0]} \n \Score: {best_model[1]}")
+    print(f"Best Model: {best_model[0]} \n Score: {best_model[1]}")
