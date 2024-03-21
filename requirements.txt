@@ -6,6 +6,7 @@ scikit-learn
 catboost
 xgboost
 dill
+Flask
 
 # to trigger (enable, running) the code inside setup.py
 #-e . 
