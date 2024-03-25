@@ -6,7 +6,6 @@ from flask import Flask, request, render_template
 from sklearn.preprocessing import StandardScaler
 from src.pipeline.predict_pipeline import CustomData, PredictPipeline
 
-## Deployment purpose
 application = Flask(__name__) #Entry point
 
 app = application
@@ -48,3 +47,4 @@ def predict_datapoint():
 
 if __name__=="__main__":
     app.run(host="0.0.0.0")
+    #app.run(host="0.0.0.0", port=8000)
