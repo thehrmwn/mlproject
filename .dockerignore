@@ -1,0 +1,18 @@
+## Excluded
+.ebextensions
+.git
+*.md
+**/catboost_info
+logs
+mlproject.egg-info
+**/__pycache__
+env
+venv
+notebook
+
+## Included
+!artifacts
+!src
+!templates
+!app.py
+!setup.py
